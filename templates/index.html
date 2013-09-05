@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+<body>
+    <div class="container-fluid">
+    <div class="row-fluid">
+    <div class="span2">
+        <form>
+            <fieldset>
+            <legend>Request Info</legend>
+            <label>Urls</label>
+            <span class="label label-inverse">1</span><br \>
+            <span class="help-block">Example block-level help text here.</span>
+            <label>Methods</label>
+            <span class="label label-inverse">2</span><br \>
+            <span class="help-block">Example block-level help text here.</span>
+            <label>Params</label>
+            <span class="label label-inverse">3</span><br \>
+            <span class="help-block">Example block-level help text here.</span>
+            </fieldset>
+        </form>
+    <!--Sidebar content-->
+    </div>
+    <div class="span10">
+        <br \><br \>
+        <ul class="nav nav-tabs">
+            <li class="active">
+            <a href="#">首页</a>
+            </li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+        </ul>
+        <div class="hero-unit">
+        {% if rsp %}
+            <p>{{ rsp }}</p>
+        {% else %}
+            <p>{{ info }}</p>
+        {% endif %}
+        </div>
+    <!--Body content-->
+    </div>
+    </div>
+    </div>
+</body>
+{% endblock %}
