@@ -9,6 +9,11 @@ SECRET_KEY = 'I AM TURTLE ENDER'
 UPLOAD_FOLDER = '/opt/'
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py'])
+
+UPLOADS_DEFAULT_DEST = '/opt/'
+
+UPLOADS_DEFAULT_URL = '/uploads'
+
 #
 # DATABASE CONFIG
 #

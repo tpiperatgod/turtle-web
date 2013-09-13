@@ -110,6 +110,17 @@ def _user_get(user_id, session=None):
                 first()
     return result
 
+@make_dict
+def user_get_by_email(user_email):
+    return _user_get_by_email(user_email, session=None)
+
+def _user_get_by_email(user_email, session=None):
+
+    result = model_query(models.User, session=session, read_deleted='no').\
+                filter_by(email=user_email).\
+                first()
+    return result
+
 @make_dict_for_all
 def user_get_all():
     return _user_get_all(session=None)

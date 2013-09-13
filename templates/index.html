@@ -1,44 +1,100 @@
 {% extends "layout.html" %}
 {% block body %}
 <body>
-    <div class="container-fluid">
-    <div class="row-fluid">
-    <div class="span2">
-        <form>
-            <fieldset>
-            <legend>Request Info</legend>
-            <label>Urls</label>
-            <span class="label label-inverse">1</span><br \>
-            <span class="help-block">Example block-level help text here.</span>
-            <label>Methods</label>
-            <span class="label label-inverse">2</span><br \>
-            <span class="help-block">Example block-level help text here.</span>
-            <label>Params</label>
-            <span class="label label-inverse">3</span><br \>
-            <span class="help-block">Example block-level help text here.</span>
-            </fieldset>
-        </form>
-    <!--Sidebar content-->
-    </div>
-    <div class="span10">
-        <br \><br \>
-        <ul class="nav nav-tabs">
-            <li class="active">
-            <a href="#">首页</a>
-            </li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-        </ul>
-        <div class="hero-unit">
-        {% if rsp %}
-            <p>{{ rsp }}</p>
-        {% else %}
-            <p>{{ info }}</p>
-        {% endif %}
+  <!-- Button trigger modal -->
+  
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+    <div class="bs-example">
+      <div class="alert alert-success fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+      </div>
+    </div><!-- /example -->
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<br /><br />
+<button class="btn btn-info" data-toggle="modal" data-target="#myModal">
+sign<span class="glyphicon glyphicon-chevron-right"></span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Sign info</h4>
+      </div>
+      <div class="modal-body">
+      
+
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#signIn" data-toggle="tab">Sign In</a></li>
+            <li><a href="#signUp" data-toggle="tab">Sign Up</a></li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active in" id="signIn">
+            <br />
+			<form class="form-horizontal" role="form" method='post' action="{{ url_for('user_signin') }}">
+			  <div class="form-group">
+			    <label for="inputEmailin" class="col-sm-4 control-label">Email</label>
+			    <div class="col-sm-8">
+			      <input type="email" name="email" class="form-control" id="inputEmailin" placeholder="Email">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputPasswordin" class="col-sm-4 control-label">Password</label>
+			    <div class="col-sm-8">
+			      <input type="password" name="password" class="form-control" id="inputPasswordin" placeholder="Password">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-sm-offset-5 col-sm-5">
+			      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      <button type="submit" class="btn btn-primary">Login</button>
+			    </div>
+			  </div>
+			</form>
+            </div>
+            <div class="tab-pane fade" id="signUp">
+            <br />
+			<form class="form-horizontal" role="form" method='post' action="{{ url_for('user_signup') }}">
+			  <div class="form-group">
+			    <label for="inputEmailup" class="col-sm-4 control-label">Email</label>
+			    <div class="col-sm-8">
+			      <input type="email" name="email" class="form-control" id="inputEmailup" placeholder="Email">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputPasswordup" class="col-sm-4 control-label">Password</label>
+			    <div class="col-sm-8">
+			      <input type="password" name="password" class="form-control" id="inputPasswordup" placeholder="Password">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputPasswordRpup" class="col-sm-4 control-label">Password(repeat)</label>
+			    <div class="col-sm-8">
+			      <input type="password" name="passwordRp" class="form-control" id="inputPasswordRpup" placeholder="PasswordRp">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-sm-offset-5 col-sm-5">
+			      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      <button type="submit" class="btn btn-primary">Create</button>
+			    </div>
+			  </div>
+			</form>
+            </div>
         </div>
-    <!--Body content-->
-    </div>
-    </div>
-    </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 {% endblock %}
