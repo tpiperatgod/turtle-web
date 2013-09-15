@@ -14,6 +14,19 @@
 	<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
 	<link href="{{ url_for('static', filename='css/jquery.fileupload-ui.css') }}" rel="stylesheet" media="screen">
 	<!-- CSS adjustments for browsers with JavaScript disabled -->
+	<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+	<style>
+	body {
+  		background: url("/static/img/body-bg.gif") repeat scroll 0 0 transparent;
+  		font-family: "Microsoft YaHei";
+		}
+	.jumbotron {
+		background: url("/static/img/psychadelic_paper_2.jpg") repeat scroll 0 0 transparent;
+	}
+	.navbar {
+		box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+	}
+	</style>
 </head>
 {% block body %}{% endblock %}
 </html>

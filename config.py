@@ -18,7 +18,7 @@ UPLOADS_DEFAULT_URL = '/uploads'
 # DATABASE CONFIG
 #
 
-sql_connection = "mysql://root:123456@192.168.198.128/web_app"
+sql_connection = "mysql://root:123456@localhost/web_app"
 
 sql_idle_timeout = 100
 

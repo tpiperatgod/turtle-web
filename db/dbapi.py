@@ -136,3 +136,37 @@ def user_update(user_id, values):
         user_ref = _user_get(user_id, session=session)
         user_ref.update(values)
         user_ref.save(session=session)
+        
+########### site models api #############
+
+def site_create(values):
+    site_ref = models.Site()
+    site_ref.update(values)
+    
+    session = get_session()
+    try:
+        with session.begin():
+            site_ref.save(session=session)
+    except IntegrityError, e:
+        raise e
+#         msg = 'error %s' % e
+#         raise msg
+    return site_ref
+
+@make_dict
+def site_get(site_id):
+    return _site_get(site_id, session=None)
+
+def _site_get(site_id, session=None):
+
+    result = model_query(models.Site, session=session, read_deleted='no').\
+                filter_by(id=site_id).\
+                first()
+    return result
+
+def site_update(site_id, values):
+    session = get_session()
+    with session.begin():
+        site_ref = _site_get(site_id, session=session)
+        site_ref.update(values)
+        site_ref.save(session=session)

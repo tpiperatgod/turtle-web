@@ -81,8 +81,15 @@ class WebBase(object):
     
 class User(Base, WebBase):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     email = Column(String(255), unique=True)
     name = Column(String(255))
     password = Column(String(255))
+    
+class Site(Base, WebBase):
+    __tablename__ = 'site'
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String(255))
+    title = Column(String(255))
+    description = Column(String(2000))
 

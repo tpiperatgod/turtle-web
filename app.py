@@ -1,18 +1,15 @@
 #!/usr/bin/env python
 #*-*coding:utf-8*-*
-#
+#coding=utf-8
 from __future__ import with_statement
 
 import sys
 import json
 import logging
 import logging.config
-
-from flask import Flask
-
-
-reload(sys)
+reload(sys) 
 sys.setdefaultencoding('utf8')
+from flask import Flask
 
 app = Flask(__name__)
 app.config.from_object('config')

@@ -12,6 +12,8 @@ import os
 
 sys.path.append("..")
 import config as CONF
+import logging
+import logging.config
 
 from sqlalchemy.exc import DisconnectionError, OperationalError
 import sqlalchemy.interfaces
@@ -21,6 +23,7 @@ from sqlalchemy.pool import NullPool, StaticPool
 _ENGINE = None
 _MAKER = None
 
+LOG = logging.getLogger(__name__)
 
 def get_session(autocommit=True, expire_on_commit=False):
     """Return a SQLAlchemy session."""
@@ -115,7 +118,7 @@ def get_engine():
             if remaining == -1:
                 remaining = 'infinite'
             while True:
-                msg = _('SQL connection failed. %s attempts left.')
+                msg = 'SQL connection failed. %s attempts left.'
                 LOG.warn(msg % remaining)
                 if remaining != 'infinite':
                     remaining -= 1
