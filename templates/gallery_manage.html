@@ -1,0 +1,192 @@
+{% extends "layout.html" %}
+{% block body %}
+
+	{% if page_func == 'delete' %}
+		<section class="page-title">
+			<div class="double-separator"></div>
+			<div class="breadcrumbs">
+				<div class="one-half alignleft">
+					<ol class="breadcrumb">
+					  <li><a href="{{ url_for('index') }}">首页</a></li>
+					  {% if s_catalog  %}
+					  <li><a href="{{ url_for('gallery_del') }}">地平线（管理页面）</a></li>
+					  <li class="active">{{ s_catalog['name'] }}</li>
+					  {% else %}
+					  <li class="active">地平线（管理页面）</li>
+					  {% endif %}
+					</ol>
+				</div>
+				<div class="one-half column-last alignright">
+				</div>
+			</div><!--end breadcrumbs-->
+			<div class="double-separator"></div>
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		  {% if s_catalog  %}
+		    选择 <span class="glyphicon glyphicon-tag"></span> 分类标签 查看或者回到 <a href="{{ url_for('gallery_del') }}">地平线（管理页面）</a> <span class="glyphicon glyphicon-arrow-up"></span>：
+		    {% for catalog in catalogs %}
+		    <a href="{{ url_for('gallery_del', catalog_id=catalog['id']) }}"><span class="glyphicon glyphicon-tag"></span> {{ catalog['name'] }}</a>&nbsp;
+		  	{% endfor %}
+		  {% else %}
+		    选择 <span class="glyphicon glyphicon-tag"></span> 分类标签 查看：
+		    {% for catalog in catalogs %}
+		    <a href="{{ url_for('gallery_del', catalog_id=catalog['id']) }}"><span class="glyphicon glyphicon-tag"></span> {{ catalog['name'] }}</a>&nbsp;
+		  	{% endfor %}	
+		  {% endif %}	  
+		  </div>
+		</div>
+		</section>
+	
+	<div class="centered-wrapper">		
+		<section id="portfolio-wrapper">
+		{% if s_catalog  %}
+		<form role="form" action="{{ url_for('gallery_del', catalog_id=s_catalog['id']) }}" method="post">
+		{% else %}
+		<form role="form" action="{{ url_for('gallery_del') }}" method="post">
+		{% endif %}
+			<ul class="portfolio four-columns">
+				<div id="gallery">
+				
+					{% if pics %}
+					{% for pic in pics %}
+					<div class="rollover"></div>
+					<li>
+					<img style="height:100px;" src="{{ url_for('uploaded_file', filename=pic['name']) }}" alt="" />
+					  <div class="checkbox">
+					    <label>
+					      <input style="margin-left:80px" name="up_file" type="checkbox" value="{{ pic['id'] }}">
+					    </label>
+					  </div>					
+					</li>
+					{% endfor %}
+					{% endif %}
+				</div>
+			</ul>
+			<div class="form-group" >
+			<button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除选中的图片</button>
+			<button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span> 清除选择</button>
+			</div>
+		</form>	
+		</section>
+	</div><!--end centered-wrapper-->
+	
+	{% elif page_func == 'edit' %}
+		<section class="page-title">
+			<div class="double-separator"></div>
+			<div class="breadcrumbs">
+				<div class="one-half alignleft">
+					<ol class="breadcrumb">
+					  <li><a href="{{ url_for('index') }}">首页</a></li>
+					  {% if s_catalog  %}
+					  <li><a href="{{ url_for('gallery_edit') }}">地平线（管理页面）</a></li>
+					  <li class="active">{{ s_catalog['name'] }}</li>
+					  {% else %}
+					  <li class="active">地平线（管理页面）</li>
+					  {% endif %}
+					</ol>
+				</div>
+				<div class="one-half column-last alignright">
+				</div>
+			</div><!--end breadcrumbs-->
+			<div class="double-separator"></div>
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		  {% if s_catalog  %}
+		    选择 <span class="glyphicon glyphicon-tag"></span> 分类标签 查看或者回到 <a href="{{ url_for('gallery_edit') }}">地平线（管理页面）</a> <span class="glyphicon glyphicon-arrow-up"></span>：
+		    {% for catalog in catalogs %}
+		    <a href="{{ url_for('gallery_edit', catalog_id=catalog['id']) }}"><span class="glyphicon glyphicon-tag"></span> {{ catalog['name'] }}</a>&nbsp;
+		  	{% endfor %}
+		  {% else %}
+		    选择 <span class="glyphicon glyphicon-tag"></span> 分类标签 查看：
+		    {% for catalog in catalogs %}
+		    <a href="{{ url_for('gallery_edit', catalog_id=catalog['id']) }}"><span class="glyphicon glyphicon-tag"></span> {{ catalog['name'] }}</a>&nbsp;
+		  	{% endfor %}	
+		  {% endif %}	  
+		  </div>
+		</div>
+		</section>
+
+	<div class="centered-wrapper">		
+		<section id="portfolio-wrapper">
+		{% if s_catalog  %}
+		<form role="form" action="{{ url_for('gallery_edit', catalog_id=s_catalog['id']) }}" method="post">
+		{% else %}
+		<form role="form" action="{{ url_for('gallery_edit') }}" method="post">
+		{% endif %}
+			<ul class="portfolio four-columns">
+				<div id="gallery">
+				
+					{% if pics %}
+					{% for pic in pics %}
+					<div class="rollover"></div>
+					<li>
+					<img style="height:100px;" src="{{ url_for('uploaded_file', filename=pic['name']) }}" alt="" />
+					  <div class="checkbox">
+					    <label>
+					      <input style="margin-left:80px" name="up_file" type="checkbox" value="{{ pic['id'] }}">
+					    </label>
+					  </div>					
+					</li>
+					{% endfor %}
+					{% endif %}
+				</div>
+			</ul>
+			<div class="form-group" >
+			<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span> 编辑选中的图片</button>
+			<button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span> 清除选择</button>
+			</div>
+		</form>	
+		</section>
+	</div><!--end centered-wrapper-->
+	{% endif %}
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="more" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#comments" data-toggle="tab">留言</a></li>
+          </ul>
+        	<hr>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active in" id="comments">
+			  <ul class="list-group">
+			    <li class="list-group-item">Cras justo odio</li>
+			    <li class="list-group-item">Dapibus ac facilisis in</li>
+			    <li class="list-group-item">Morbi leo risus</li>
+			    <li class="list-group-item">Porta ac consectetur ac</li>
+			    <li class="list-group-item">Vestibulum at eros</li>
+			  </ul>	
+        	<hr>
+			<form class="form-horizontal" role="form" method='post' action="{{ url_for('catalog', next='/upload/pre_public') }}">
+			  <div class="form-group">
+			    <label for="comment_name" class="col-sm-2 control-label"><span class="glyphicon glyphicon-heart"></span> 我叫：</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="comment_name" class="form-control" id="comment_name" placeholder="匿名用户">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-comment"></span> 我想说：</label>
+			    <div class="col-sm-10">
+				  <textarea class="form-control" rows="5" name="comment_content"></textarea>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-sm-offset-5 col-sm-5">
+			      <button type="submit" class="btn btn-info">加上去</button>
+			      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			    </div>
+			  </div>
+			</form>
+            </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+{% endblock %}

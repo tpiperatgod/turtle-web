@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ephem</title>
+    <title>海龟终结者</title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/superfish.css') }}" media="screen">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prettyPhoto.css') }}" media="screen"/>
     <script src="{{ url_for('static', filename='js/jQuery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 	<!-- Bootstrap styles -->
@@ -15,18 +17,110 @@
 	<link href="{{ url_for('static', filename='css/jquery.fileupload-ui.css') }}" rel="stylesheet" media="screen">
 	<!-- CSS adjustments for browsers with JavaScript disabled -->
 	<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.7.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.nivo.slider.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/hoverIntent.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/superfish.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.jcarousel.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.tweet.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jflickrfeed.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.masonry.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.prettyPhoto.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/slides.min.jquery.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.quicksand.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.contact.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.preloadify.min.js') }}"></script>
+	
+	<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
 	<style>
 	body {
   		background: url("/static/img/body-bg.gif") repeat scroll 0 0 transparent;
   		font-family: "Microsoft YaHei";
-		}
+	}
+	#wrapper {
+  		background: url("/static/img/body-bg.gif") repeat scroll 0 0 transparent;
+
+	}
 	.jumbotron {
-		background: url("/static/img/psychadelic_paper_2.jpg") repeat scroll 0 0 transparent;
+		background: url("/static/img/public_bg.jpg") repeat scroll 0 0 transparent;
 	}
 	.navbar {
 		box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
 	}
 	</style>
 </head>
+<body>
+  <div class="navbar navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url_for('index') }}">海龟终结者</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{{ url_for('index') }}"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+          <li><a href="{{ url_for('gallery_horizon') }}"><span class="glyphicon glyphicon-picture"></span> 图志</a></li>
+
+          <li><a href="{{ url_for('about') }}"><span class="glyphicon glyphicon-exclamation-sign"></span> 关于我</a></li>
+        </ul>
+      <ul class="nav navbar-nav navbar-right">
+       {% if g.user %} 
+       <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 管理 <b class="caret"></b></a>
+       <ul class="dropdown-menu">     		
+	  		<li><a href="{{ url_for('upload') }}"><span class="glyphicon glyphicon-plus"></span> 上传</a></li>
+	  		<li><a href="{{ url_for('gallery_edit') }}"><span class="glyphicon glyphicon-edit"></span> 编辑</a></li>
+         	<li><a href="{{ url_for('gallery_del') }}"><span class="glyphicon glyphicon-minus"></span> 删除</a></li>
+         	<li class="divider"></li>
+			<li><a href="{{ url_for('admin_index') }}"><span class="glyphicon glyphicon-wrench"></span> 其他选项</a></li>
+			<li class="divider"></li>
+			<li><a href="{{ url_for('user_signout') }}"><span class="glyphicon glyphicon-chevron-right"></span> 退出</a></li>
+       </ul>
+       {% else %}
+       <li><a href="{{ url_for('user_signin') }}"><span class="glyphicon glyphicon-chevron-right"></span> 登录</a></li>
+ 	   {% endif %}    
+     </li>
+   </ul>
+      </div><!-- /.nav-collapse -->
+    </div><!-- /.container -->
+  </div><!-- /.navbar -->
+
 {% block body %}{% endblock %}
+	<div class="centered-wrapper">
+	
+      <hr>
+
+		<div class="row triple-row">
+			<div id="triple-first" class="col-md-12 triple">
+			    <div class="zone zone-triple-first">
+					<article class="widget-triple-first widget-html-widget widget" style="text-align: center">
+			    		<header>
+			        		<h1>底角碎片</h1>
+		    			</header>
+					    <p>
+					    <span class="glyphicon glyphicon-book"></span> turtle-web.git: <a href="https://github.com/tpiperatgod/turtle-web">Turtle Web</a>
+						</p>
+					    <p>
+						<span class="glyphicon glyphicon-envelope"></span> Mail: <a href="mailto:">tpiperatgod@gmail.com</a>
+						</p>
+					    <p>
+						Copyright 2013 - 
+						Made by <span class="glyphicon glyphicon-exclamation-sign"></span><a href="{{ url_for('about') }}"> 海龟终结者</a> - 
+						Powered by <span class="glyphicon glyphicon-link"></span><a href="http://flask.pocoo.org/"> Flask</a> & 
+						<span class="glyphicon glyphicon-link"></span><a href="http://getbootstrap.com/2.3.2/"> Bootstrap 3.0.0</a> &
+						<span class="glyphicon glyphicon-link"></span><a href="http://demo.ourtuts.com/haze/"> Haze</a>
+						</p>
+					</article>
+				</div>
+			</div>
+		</div>
+	<hr>
+	
+	</div><!--end centered-wrapper-->	
 </html>

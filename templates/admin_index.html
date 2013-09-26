@@ -1,100 +1,178 @@
 {% extends "layout.html" %}
 {% block body %}
-<body>
-    <div class="navbar navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ url_for('index') }}">海龟终结者</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="{{ url_for('index') }}"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
-            <li><a href="{{ url_for('topic_index') }}"><span class="glyphicon glyphicon-comment"></span> 话题</a></li>
-            <li><a href="#about"><span class="glyphicon glyphicon-exclamation-sign"></span> 关于咱</a></li>
-            <li><a href="#contact"><span class="glyphicon glyphicon-send"></span> 联系</a></li>
+
+		<section class="page-title">
+			<div class="double-separator"></div>
+			<div class="breadcrumbs">
+				<div class="one-half alignleft">
+					<ol class="breadcrumb">
+					  <li><a href="{{ url_for('index') }}">首页</a></li>
+					  <li class="active">管理员界面</li>
+					</ol>
+				</div>
+				
+				<div class="one-half column-last alignright">
+					
+				</div>
+			</div><!--end breadcrumbs-->
+			<div class="double-separator"></div>
+		</section>
+	
+	<div class="centered-wrapper">		
+		<section>
+			<div class="container">
+			  <div class="row row-offcanvas row-offcanvas-right">
+		        <div class="alert alert-info">以下选项用于<strong> 管理员 </strong>用户名及密码的设置。</div>
+				<form class="form-horizontal" role="form" method="post" action="{{ url_for('admin_user_edit') }}">
+				  <div class="form-group" >
+				    <label for="userName" class="col-sm-4 control-label">名称</label>
+				    <div class="col-sm-4">
+				      <input type="text" name="user_name" class="form-control" id="userName" placeholder="">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="inputPasswordup" class="col-sm-4 control-label">新的密码</label>
+				    <div class="col-sm-4">
+				      <input type="password" name="password" class="form-control" id="inputPasswordup" placeholder="密码">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="inputPasswordRpup" class="col-sm-4 control-label">确认密码</label>
+				    <div class="col-sm-4">
+				      <input type="password" name="passwordRp" class="form-control" id="inputPasswordRpup" placeholder="确认密码">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-4 col-sm-8">
+				      <button type="button" class="btn btn-default">取消并返回首页</button>
+				      <button type="submit" class="btn btn-primary">确认修改</button>
+				    </div>
+				  </div>
+				</form>
+				
+				<hr>
+
+		        <div class="alert alert-info">以下选项用于<strong> 站点 </strong>常规参数的设置。</div>
+				<form class="form-horizontal" role="form" action="{{ url_for('admin_index') }}" method="post">
+				  <div class="form-group" >
+				    <label for="siteName" class="col-sm-4 control-label">网站名称</label>
+				    <div class="col-sm-4">
+				      <input type="text" name="site_name" class="form-control" id="siteName" placeholder="">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="publicTitle" class="col-sm-4 control-label">公告栏标题</label>
+				    <div class="col-sm-4">
+				      <input type="text" name="public_title" class="form-control" id="publicTitle" placeholder="">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="publicDescription" class="col-sm-2 control-label">公告栏内容</label>
+				    <div class="col-sm-8">
+					  <textarea class="form-control" rows="5" name="public_description"></textarea>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-4 col-sm-8">
+				      <button type="button" class="btn btn-default">取消并返回首页</button>
+				      <button type="submit" class="btn btn-primary">确认修改</button>
+				    </div>
+				  </div>
+				</form>
+				
+				<hr>
+				<div class="alert alert-info">以下选项用于<strong> 图志 </strong>的管理。</div>
+				<form class="form-horizontal" role="form" action="{{ url_for('catalog_del') }}" method="post">
+				  <div class="form-group" >
+				  <div class="col-sm-offset-2 col-sm-10">
+					<p>已有的分类</p>
+					{% for catalog in catalogs %}
+					{% if catalog['id'] == 1 %}
+					<div class="btn-group" data-toggle="buttons">
+					  <label class="btn btn-default" disabled="disabled">
+					    <input type="checkbox" name="catalog" value="{{ catalog['id'] }}"> <span class="glyphicon glyphicon-tag"></span>  {{ catalog['name'] }}
+					  </label>
+					</div>
+					{% else %}					
+					<div class="btn-group" data-toggle="buttons">
+					  <label class="btn btn-default">
+					    <input type="checkbox" name="catalog" value="{{ catalog['id'] }}"> <span class="glyphicon glyphicon-tag"></span>  {{ catalog['name'] }}
+					  </label>
+					</div>
+					{% endif %}
+					{% endfor %}	
+					<br /><br />
+					<a href="" class="btn btn-sm btn-info" data-toggle="modal" data-target="#addCatalog"><span class="glyphicon glyphicon-plus"></span> 分类</a>
+					点击右边的按钮，会添加分类标签；点击左边的按钮，会删除选中的分类标签 
+					{% if catalog_num == 1 %}
+					<button type="submit" class="btn btn-sm btn-danger" disabled="disabled"><span class="glyphicon glyphicon-minus"></span> 分类</button>
+					{% else %}				  
+				 	<button type="submit" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> 分类</button>
+				 	{% endif %}
+				  </div>
+				  </div>
+				</form>	
+								
+				<hr>
+				<div class="alert alert-danger">以下选项用于<strong> 数据库 </strong>操作，请谨慎执行！</div>
+				<form class="form-horizontal" role="form">
+				  <div class="form-group" >
+				  <div class="col-sm-offset-2 col-sm-10">
+					如果你尚未同步数据库，请点击  
+					{% if session['db_status'] %}
+					<a href="{{ url_for('init_db') }}" class="btn btn-lg btn-primary" disabled="disabled"><span class="glyphicon glyphicon-lock"></span> 初始化数据库</a> ,
+					{% else %}
+					<a href="{{ url_for('init_db') }}" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-lock"></span> 初始化数据库</a> ,
+					{% endif %}
+					如果它不可用，说明你已经同步数据库，请<strong>不要重复操作！</strong><br/>
+					另外一个比较危险的动作，意味着你将要放弃当前的所有数据，三思而后行   
+					{% if session['db_status'] %}
+					<a href="{{ url_for('drop_db') }}" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-lock"></span> 删除数据库</a> 
+					{% else %}
+					<a href="{{ url_for('drop_db') }}" class="btn btn-lg btn-danger" disabled="disabled"><span class="glyphicon glyphicon-lock"></span> 删除数据库</a>
+					{% endif %}
+				  </div>
+				  </div>
+				</form>		
+				
+			  </div>
+			</div>
+		</section>
+	</div><!--end centered-wrapper-->
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addCatalog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#addCatalog" data-toggle="tab">添加分类</a></li>
           </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="{{ url_for('admin_index') }}"><span class="glyphicon glyphicon-wrench"></span> 管理员选项</a></li>
-	      <li class="dropdown">
-	        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 用户 <b class="caret"></b></a>
-	        <ul class="dropdown-menu">
-	          <li><a href="#">Action</a></li>
-	          <li><a href="#">Another action</a></li>
-	          <li><a href="#">Something else here</a></li>
-	          <li class="divider"></li>
-	          <li><a href="#">Separated link</a></li>
-	        </ul>
-	      </li>
-	    </ul>
-        </div><!-- /.nav-collapse -->
-      </div><!-- /.container -->
-    </div><!-- /.navbar -->
-    
-	<div class="container">
-	  <div class="row row-offcanvas row-offcanvas-right">
-          <div class="jumbotron">
-            <h1>Hello, world!</h1>
-            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
-          	<button class="btn btn-info" data-toggle="modal" data-target="#myModal">
-			加入  <span class="glyphicon glyphicon-chevron-right"></span>
-			</button>
-          </div>
-          
-        <div class="alert alert-info">以下选项用于<strong>站点</strong>常规参数的设置。</div>
-		<form class="form-horizontal" role="form" methods="post" action="{{ url_for('user_signin') }}">
-		  <div class="form-group" >
-		    <label for="siteName" class="col-sm-2 control-label">网站名称</label>
-		    <div class="col-sm-10">
-		      <input type="text" name="site_name" class="form-control" id="siteName" placeholder="">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="publicTitle" class="col-sm-2 control-label">公告栏标题</label>
-		    <div class="col-sm-10">
-		      <input type="text" name="public_title" class="form-control" id="publicTitle" placeholder="">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="publicDescription" class="col-sm-2 control-label">公告栏内容</label>
-		    <div class="col-sm-10">
-			  <textarea class="form-control" rows="5" name="public_description"></textarea>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-sm-10">
-		      <button type="button" class="btn btn-default">取消并返回首页</button>
-		      <button type="submit" class="btn btn-primary">确认修改</button>
-		    </div>
-		  </div>
-		</form>
-		
-		<hr>
-		<div class="alert alert-danger">以下选项用于<strong>数据库</strong>操作，请谨慎执行！</div>
-		<form class="form-horizontal" role="form">
-		  <div class="form-group" >
-		  <div class="col-sm-offset-2 col-sm-10">
-			如果你尚未同步数据库，请点击  <a href="{{ url_for('init_db') }}" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-lock"></span> 初始化数据库</a> ,
-			如果它不可用，说明你已经同步数据库，请<strong>不要重复操作！</strong><br/>
-			另外一个比较危险的动作，意味着你将要放弃当前的所有数据，三思而后行   <a href="" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-lock"></span> 删除数据库</a> 
-		  </div>
-		  </div>
-		</form>		
-		
-	  </div>
-	</div>
-
-
-	<hr>
-      <footer>
-        <p>Copyright 2013 - Made by turtle_ender - Flask</p>
-      </footer>
-
-    </div><!--/.container-->
-
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active in" id="addCatalog">
+            <br />
+			<form class="form-horizontal" role="form" method='post' action="{{ url_for('catalog', next='/admin') }}">
+			  <div class="form-group">
+			    <label for="catalogname" class="col-sm-4 control-label">分类名称</label>
+			    <div class="col-sm-8">
+			      <input type="text" name="catalogname" class="form-control" id="catalogname" placeholder="">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-sm-offset-5 col-sm-5">
+			      <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			      <button type="submit" class="btn btn-primary">添加</button>
+			    </div>
+			  </div>
+			</form>
+            </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
 </body>
 {% endblock %}

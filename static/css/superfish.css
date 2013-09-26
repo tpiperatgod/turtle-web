@@ -1,0 +1,117 @@
+ul#mainnav li ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+ul#mainnav li ul {
+	line-height:1.0;
+}
+
+ul#mainnav li {
+	overflow:hidden;
+}
+
+ul#mainnav li ul {
+	position:absolute;
+	width:200px; /* left offset of submenus need to match (see below) */
+	top:36px;
+	left:0;
+	padding-top:0px;
+	padding-right:1px;
+	padding-top:1px;
+}
+
+ul#mainnav li ul li {
+	width:100%;
+}
+
+ul#mainnav li ul li:hover {
+	visibility:inherit; /* fixes IE7 'sticky bug' */
+}
+
+ul#mainnav li ul li {
+	float:left;
+	position:relative;
+	z-index:980;
+}
+
+ul#mainnav li ul li a {
+	display:block;
+	position:relative;
+	font-size:13px;
+}
+
+ul#mainnav li ul li:hover ul,
+ul#mainnav li ul li.sfHover ul {
+	left:201px;
+	top:36px /* match top ul list item height */
+	z-index:99;
+}
+
+ul#mainnav li ul li:hover li ul,
+ul#mainnav li ul li.sfHover li ul {
+	top:-999em;
+}
+
+ul#mainnav li ul li li:hover ul,
+ul#mainnav li ul li li.sfHover ul {
+	left:200px; /* match ul width */
+	top:0;
+}
+
+ul#mainnav li ul li li:hover li ul,
+ul#mainnav li ul li li.sfHover li ul {
+	top:-999em;
+}
+
+ul#mainnav li ul li ul {
+	position:absolute;
+	width:200px;
+	left:201px;
+	top:0px;
+	padding-top:0px;
+}
+
+ul#mainnav li ul li ul li:hover ul,
+ul#mainnav li ul li ul li.sfHover ul {
+	left:201px; /* match ul width */
+	top:0;
+}
+
+ul#mainnav li ul li a {
+	border-top:1px solid #000;
+	text-decoration:none;
+}
+
+ul#mainnav li ul li a, ul#mainnav li ul li a:visited, ul#mainnav li ul li a:active  { /* visited pseudo selector so IE6 applies text colour*/
+	color:#fff;
+	display:block;
+	position:relative;
+	width:170px;
+	padding:0 15px;
+	background:#323232;
+	-webkit-transition:background 0.2s linear; 
+}
+
+ul#mainnav li ul li a:hover {
+	background:#000;
+}
+
+ul#mainnav li ul li {
+	background:#fff;
+	margin:0;
+}
+
+ul#mainnav li.sfHover a {
+	background:#323232;
+	color:#fff;
+}
+
+.sf-shadow ul {
+
+}
+
+.sf-shadow ul.sf-shadow-off {
+	background: transparent;
+}

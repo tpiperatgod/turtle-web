@@ -1,6 +1,6 @@
-#!/bin/python
-#
-#
+#!/usr/bin/env python
+#*-*coding:utf-8*-*
+#coding=utf-8
 import os, sys
 
 from sqlalchemy import Column, Integer, BigInteger, String, schema
@@ -80,12 +80,12 @@ class WebBase(object):
         return local.iteritems()
     
 class User(Base, WebBase):
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True, nullable=False)
     email = Column(String(255), unique=True)
     name = Column(String(255))
-    password = Column(String(255))
-    
+    password = Column(String(255))    
+
 class Site(Base, WebBase):
     __tablename__ = 'site'
     id = Column(Integer, primary_key=True, nullable=False)
@@ -93,3 +93,32 @@ class Site(Base, WebBase):
     title = Column(String(255))
     description = Column(String(2000))
 
+class Upload(Base, WebBase):
+    __tablename__ = 'uploads'
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String(255))
+    name = Column(String(255))
+    description = Column(String(2000), nullable=True, default='...')
+    catalog = Column(Integer, default=1)
+    url = Column(String(2000))
+    path = Column(String(2000))
+    heat = Column(Integer)
+    types = Column(String(255))
+    
+class Catalog(Base, WebBase):
+    __tablename__ = 'catalogs'
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String(255))
+
+class Comment(Base, WebBase):
+    __tablename__ = 'comments'
+    id = Column(Integer, primary_key=True, nullable=False)
+    pic_id = Column(Integer)
+    name = Column(String(255))
+    content = Column(String(2000), nullable=False)
+    
+    
+    
+    
+    
+    

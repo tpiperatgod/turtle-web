@@ -5,6 +5,9 @@
 import re
 import time
 from session import get_session
+import sys
+sys.path.append("..")
+from utils import timeutils
 
 from sqlalchemy import create_engine
 import sqlalchemy.interfaces
@@ -75,6 +78,7 @@ def make_dict_for_all(f):
         return local
     return __dict__
 
+
 ########### user models api #############
 
 def user_create(values):
@@ -136,7 +140,7 @@ def user_update(user_id, values):
         user_ref = _user_get(user_id, session=session)
         user_ref.update(values)
         user_ref.save(session=session)
-        
+     
 ########### site models api #############
 
 def site_create(values):
@@ -170,3 +174,190 @@ def site_update(site_id, values):
         site_ref = _site_get(site_id, session=session)
         site_ref.update(values)
         site_ref.save(session=session)
+        
+########### user models api #############
+
+def upload_create(values):
+    upload_ref = models.Upload()
+    upload_ref.update(values)
+    
+    session = get_session()
+    try:
+        with session.begin():
+            upload_ref.save(session=session)
+    except IntegrityError, e:
+        raise e
+#         msg = 'error %s' % e
+#         raise msg
+    return upload_ref
+
+def uoload_destroy(upload_id):
+    session = get_session()
+    with session.begin():   
+        session.query(models.Upload).\
+                filter_by(id=upload_id).\
+                update({'deleted': True,
+                        'deleted_at': timeutils.utcnow(),
+                        'updated_at': literal_column('updated_at')})
+
+@make_dict
+def upload_get(upload_id):
+    return _upload_get(upload_id, session=None)
+
+def _upload_get(upload_id, session=None):
+
+    result = model_query(models.Upload, session=session, read_deleted='no').\
+                filter_by(id=upload_id).\
+                first()
+    return result
+
+@make_dict_for_all
+def upload_get_by_catalog_id(upload_catalog_id):
+    return _upload_get_by_catalog_id(upload_catalog_id, session=None)
+
+def _upload_get_by_catalog_id(upload_catalog_id, session=None):
+
+    result = model_query(models.Upload, session=session, read_deleted='no').\
+                filter_by(catalog=upload_catalog_id).\
+                all()
+    return result
+
+@make_dict
+def upload_get_by_url(upload_url):
+    return _upload_get_by_url(upload_url, session=None)
+
+def _upload_get_by_url(upload_url, session=None):
+
+    result = model_query(models.Upload, session=session, read_deleted='no').\
+                filter_by(url=upload_url).\
+                first()
+    return result
+
+@make_dict_for_all
+def upload_get_all():
+    return _upload_get_all(session=None)
+
+def _upload_get_all(session=None):
+    result = model_query(models.Upload, session=session, read_deleted='no').\
+                all()
+    return result
+
+
+def upload_update(upload_id, values):
+    session = get_session()
+    with session.begin():
+        upload_ref = _upload_get(upload_id, session=session)
+        upload_ref.update(values)
+        upload_ref.save(session=session)
+
+
+########### catalog models api #############
+
+def catalog_create(values):
+    catalog_ref = models.Catalog()
+    catalog_ref.update(values)
+    
+    session = get_session()
+    try:
+        with session.begin():
+            catalog_ref.save(session=session)
+    except IntegrityError, e:
+        raise e
+#         msg = 'error %s' % e
+#         raise msg
+    return catalog_ref
+
+def catalog_destroy(catalog_id):
+    session = get_session()
+    with session.begin():    
+        session.query(models.Catalog).\
+                filter_by(id=catalog_id).\
+                update({'deleted': True,
+                        'deleted_at': timeutils.utcnow(),
+                        'updated_at': literal_column('updated_at')})
+
+@make_dict
+def catalog_get(catalog_id):
+    return _catalog_get(catalog_id, session=None)
+
+def _catalog_get(catalog_id, session=None):
+
+    result = model_query(models.Catalog, session=session, read_deleted='no').\
+                filter_by(id=catalog_id).\
+                first()
+    return result
+
+@make_dict
+def catalog_get_by_name(catalog_name):
+    return _catalog_get_by_name(catalog_name, session=None)
+
+def _catalog_get_by_name(catalog_name, session=None):
+
+    result = model_query(models.Catalog, session=session, read_deleted='no').\
+                filter_by(name=catalog_name).\
+                first()
+    return result
+
+@make_dict
+def catalog_get_by_id(catalog_id):
+    return _catalog_get_by_id(catalog_id, session=None)
+
+def _catalog_get_by_id(catalog_id, session=None):
+
+    result = model_query(models.Catalog, session=session, read_deleted='no').\
+                filter_by(id=catalog_id).\
+                first()
+    return result
+
+@make_dict_for_all
+def catalog_get_all():
+    return _catalog_get_all(session=None)
+
+def _catalog_get_all(session=None):
+    result = model_query(models.Catalog, session=session, read_deleted='no').\
+                all()
+    return result
+
+
+def catalog_update(catalog_id, values):
+    session = get_session()
+    with session.begin():
+        catalog_ref = _catalog_get(catalog_id, session=session)
+        catalog_ref.update(values)
+        catalog_ref.save(session=session)
+        
+########### comments models api #############
+
+def comment_create(values):
+    comment_ref = models.Comment()
+    comment_ref.update(values)
+    
+    session = get_session()
+    try:
+        with session.begin():
+            comment_ref.save(session=session)
+    except IntegrityError, e:
+        raise e
+#         msg = 'error %s' % e
+#         raise msg
+    return comment_ref
+
+def comment_destroy(comment_id):
+    session = get_session()
+    with session.begin():    
+        session.query(models.Comment).\
+                filter_by(id=comment_id).\
+                update({'deleted': True,
+                        'deleted_at': timeutils.utcnow(),
+                        'updated_at': literal_column('updated_at')})
+
+@make_dict
+def comment_get(comment_id):
+    return _comment_get(comment_id, session=None)
+
+def _comment_get(comment_id, session=None):
+
+    result = model_query(models.Comment, session=session, read_deleted='no').\
+                filter_by(id=comment_id).\
+                first()
+    return result
