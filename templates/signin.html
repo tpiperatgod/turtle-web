@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block body %}
+  
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+    <div class="bs-example">
+      <div class="alert alert-success fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+      </div>
+    </div><!-- /example -->
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% if error %}
+<ul class=flashes>
+<div class="bs-example">
+  <div class="alert alert-danger fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    {{ error }}
+  </div>
+</div><!-- /example -->
+</ul>
+{% endif %}
+
+		<section class="page-title">
+			<div class="double-separator"></div>
+			<div class="double-separator"></div>
+		</section>
+			
+	<div class="centered-wrapper">		
+		<section>
+			<form class="form-horizontal" role="form" method='post' action="{{ url_for('user_signin') }}">
+			  <div class="form-group">
+			    <label for="inputEmailin" class="col-sm-4 control-label">邮箱</label>
+			    <div class="col-sm-4">
+			      <input type="email" name="email" class="form-control" id="inputEmailin" placeholder="邮箱">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputPasswordin" class="col-sm-4 control-label">密码</label>
+			    <div class="col-sm-4">
+			      <input type="password" name="password" class="form-control" id="inputPasswordin" placeholder="密码">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-sm-offset-5 col-sm-5">
+			      <button type="submit" class="btn btn-primary">登录</button>
+			    </div>
+			  </div>
+			</form>
+		</section>
+	</div><!--end centered-wrapper-->
+	
+</div>
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+{% endblock %}

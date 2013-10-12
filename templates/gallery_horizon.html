@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block body %}
+
+		<section class="page-title">
+			<div class="double-separator"></div>
+			<div class="breadcrumbs">
+				<div class="one-half alignleft">
+					<ol class="breadcrumb">
+					  <li><a href="{{ url_for('index') }}">首页</a></li>
+					  {% if s_catalog  %}
+					  <li><a href="{{ url_for('gallery_horizon') }}">地平线</a></li>
+					  <li class="active">{{ s_catalog['name'] }}</li>
+					  {% else %}
+					  <li class="active">地平线</li>
+					  {% endif %}
+					</ol>
+				</div>
+				<div class="one-half column-last alignright">
+				</div>
+			</div><!--end breadcrumbs-->
+			<div class="double-separator"></div>
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		  {% if s_catalog  %}
+		    选择 <span class="glyphicon glyphicon-tag"></span> 分类标签 查看或者回到 <a href="{{ url_for('gallery_horizon') }}">地平线</a> <span class="glyphicon glyphicon-arrow-up"></span>：
+		    {% for catalog in catalogs %}
+		    <a href="{{ url_for('gallery_horizon', catalog_id=catalog['id']) }}"><span class="glyphicon glyphicon-tag"></span> {{ catalog['name'] }}</a>&nbsp;
+		  	{% endfor %}
+		  {% else %}
+		    选择 <span class="glyphicon glyphicon-tag"></span> 分类标签 查看：
+		    {% for catalog in catalogs %}
+		    <a href="{{ url_for('gallery_horizon', catalog_id=catalog['id']) }}"><span class="glyphicon glyphicon-tag"></span> {{ catalog['name'] }}</a>&nbsp;
+		  	{% endfor %}	
+		  {% endif %}	  
+		  </div>
+		</div>
+		</section>
+
+	</div><!--end top-->
+	
+	<div class="centered-wrapper">		
+		<section>			
+			{% if not pics %}
+			{% if s_catalog  %}
+			<div class="alert alert-info">
+			  抱歉，这个分类下暂时没有图片，请选择其他分类或者返回 <a href="{{ url_for('gallery_horizon') }}" class="alert-link">地平线  <span class="glyphicon glyphicon-arrow-up"></span></a>
+			</div>
+			{% else %}
+			<div class="alert alert-info">
+			  抱歉，您还没有上传至少一张图片，请使用  <a href="{{ url_for('upload') }}" class="alert-link"><span class="glyphicon glyphicon-plus"></span> 上传</a> 为 地平线 添加图片
+			</div>
+			{% endif %}
+			{% else %}			
+			<div id="gallery">
+			{% for pic in pics %}
+				<div class="gallery-item col4">
+				<div class="rollover"></div>
+					<a href="{{ pic['url'] }}" rel="prettyPhoto[pp_gal]">
+						<img src="{{ pic['url'] }}" alt="" />
+					</a>
+				</div>
+			{% endfor %}
+			</div>	
+			{% endif %}
+		</section>
+	</div><!--end centered-wrapper-->
+
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+{% endblock %}

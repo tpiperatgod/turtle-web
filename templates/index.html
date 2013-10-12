@@ -1,8 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<body>
-  <!-- Button trigger modal -->
-  
+
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
@@ -18,83 +16,28 @@
   {% endif %}
 {% endwith %}
 
-<br /><br />
-<button class="btn btn-info" data-toggle="modal" data-target="#myModal">
-sign<span class="glyphicon glyphicon-chevron-right"></span>
-</button>
+{% if error %}
+<ul class=flashes>
+<div class="bs-example">
+  <div class="alert alert-danger fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    {{ error }}
+  </div>
+</div><!-- /example -->
+</ul>
+{% endif %}
+	
+    <div class="container">
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Sign info</h4>
-      </div>
-      <div class="modal-body">
-      
+      <div class="row row-offcanvas row-offcanvas-right">
 
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#signIn" data-toggle="tab">Sign In</a></li>
-            <li><a href="#signUp" data-toggle="tab">Sign Up</a></li>
-          </ul>
-          <div id="myTabContent" class="tab-content">
-            <div class="tab-pane active in" id="signIn">
-            <br />
-			<form class="form-horizontal" role="form" method='post' action="{{ url_for('user_signin') }}">
-			  <div class="form-group">
-			    <label for="inputEmailin" class="col-sm-4 control-label">Email</label>
-			    <div class="col-sm-8">
-			      <input type="email" name="email" class="form-control" id="inputEmailin" placeholder="Email">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="inputPasswordin" class="col-sm-4 control-label">Password</label>
-			    <div class="col-sm-8">
-			      <input type="password" name="password" class="form-control" id="inputPasswordin" placeholder="Password">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <div class="col-sm-offset-5 col-sm-5">
-			      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      <button type="submit" class="btn btn-primary">Login</button>
-			    </div>
-			  </div>
-			</form>
-            </div>
-            <div class="tab-pane fade" id="signUp">
-            <br />
-			<form class="form-horizontal" role="form" method='post' action="{{ url_for('user_signup') }}">
-			  <div class="form-group">
-			    <label for="inputEmailup" class="col-sm-4 control-label">Email</label>
-			    <div class="col-sm-8">
-			      <input type="email" name="email" class="form-control" id="inputEmailup" placeholder="Email">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="inputPasswordup" class="col-sm-4 control-label">Password</label>
-			    <div class="col-sm-8">
-			      <input type="password" name="password" class="form-control" id="inputPasswordup" placeholder="Password">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="inputPasswordRpup" class="col-sm-4 control-label">Password(repeat)</label>
-			    <div class="col-sm-8">
-			      <input type="password" name="passwordRp" class="form-control" id="inputPasswordRpup" placeholder="PasswordRp">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <div class="col-sm-offset-5 col-sm-5">
-			      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      <button type="submit" class="btn btn-primary">Create</button>
-			    </div>
-			  </div>
-			</form>
-            </div>
-        </div>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        <div class="col-xs-12 col-sm-12">
+          <div class="jumbotron">
+          <br /><br /><br /><br /><br />
+          </div>
+        </div><!--/span-->
+
+    </div><!--/.container-->
+
 </body>
 {% endblock %}
